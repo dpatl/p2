@@ -1,0 +1,23 @@
+<b>The user should be shown all the events in this calendar that are in the WAITING_RESPONSE state.
+    The user should then be able to modify the status on any or all of
+them, and press submit to save.
+    After the user Submits, the user should be redirected to their main page. </b> <br><br>
+<h3>Events Awaiting a Response</h3>
+
+<form action="/mycalendar/waiting/user/{{ us.id }}/calendar/{{ ca.id }}/submitmodifystatus" method="post">
+
+{% csrf_token %}
+{% for e in ev %}
+    <ul>
+    <li> {{ e.event.title }}: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    <label>Waiting Response <input type="radio" name="answer{{ e.event.id }}"  value="WR" checked="checked"/> </label>
+    <label>Decline <input type="radio" name="answer{{ e.event.id }}"  value="DE" /> </label>
+    <label>Tentative <input type="radio" name="answer{{ e.event.id }}"  value="TE" /> </label>
+    <label>Accept <input type="radio" name="answer{{ e.event.id }}"  value="AC" /> </label>
+    </ul>
+{% endfor %}
+
+<hr>
+<input type="submit" value="Submit Event" />
+</form>
+{% debug %}

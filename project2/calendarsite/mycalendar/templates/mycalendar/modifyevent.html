@@ -1,0 +1,32 @@
+<h3>Modify event: {{e.title}}</h3>
+
+<form action="/mycalendar/modifyevent/{{ e.id }}/submitmodifyevent/" method="post">
+{% csrf_token %}
+
+<label>Event Title:</label> <input id="title" type="text" name="title" value="{{e.title}}"/> <br>
+<label>Start Time (as "YYYY-MM-DD HH:MM"):</label> <input id="start_time" type="text" name="start_time" value="{{e.start_time}}"/> <br>
+<label>End Time (as "YYYY-MM-DD HH:MM"):</label> <input id="end_time" type="text" name="end_time" value="{{e.end_time}}"/>
+
+<h4>Choose which calendars to invite:</h4>
+<ul>
+{% for cal in c %}
+{% if cal.id in i.keys%}
+    <li> {{ cal.title }}: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    <label>Invite <input type="radio" name="answer{{ cal.id }}"  value="true" checked="checked"/> </label>
+    <label>Don't Invite <input type="radio" name="answer{{ cal.id }}"  value="false" /> </label>
+    {% for k,v in i.items %}
+        {% if cal.id == k%}
+            <label> Current Status:  {{v}} </label>
+        {% endif %}
+    {% endfor %}
+{% else %}
+    <li> {{ cal.title }}: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    <label>Invite <input type="radio" name="answer{{ cal.id }}"  value="true"/> </label>
+    <label>Don't Invite <input type="radio" name="answer{{ cal.id }}"  value="false" checked="checked"/> </label>
+    <label> Current Status:    </label>
+
+{% endif %}
+{% endfor %}
+</ul>
+<input type="submit" value="Submit Event" />
+</form>

@@ -1,0 +1,14 @@
+{% if calendar_id %}
+   <h4> List of Calendar Events </h4>
+
+   {% for k,v in eventz.items %}
+       <table style="border:2px solid black; padding: 10px; border-collapse: collapse">
+       <tr><th style="border:2px solid black">Event Title</th><th style="border:2px solid black">Start Time</th><th style="border:2px solid black">End Time</th></tr>
+           {% for i in v %}
+               <tr>
+                   <td style="border:2px solid black"><a href="{% url 'eventindex' i.id %}"> {{ i.title }}</a><td style="border:2px solid black"> {{ i.start_time }} <td style="border:2px solid black"> {{ i.end_time }} </tr>
+               </tr>
+           {% endfor %}
+       </table>
+   {% endfor %}
+{% endif %}
